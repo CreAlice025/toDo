@@ -2,12 +2,15 @@ import { Component, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { JsonPipe } from '@angular/common';
 import { AuthService } from '../../../Services/auth-service/auth-service';
+import { Header } from "../../../shared/header/header";
 
 @Component({
   selector: 'app-dashboard',
   imports: [
-    JsonPipe
+    JsonPipe,
+    Header
   ],
+  standalone: true,
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css'
 })
@@ -18,10 +21,6 @@ export class Dashboard {
   // variable disponible pour savoir si l'utilisateur est connecté
   isLoggedIn = this.authService.isLoggedIn;
   data: any = null;
-
-  logout() {
-    this.authService.logout();
-  }
 
   loadData() {
     // Le token sera automatiquement ajouté par l'intercepteur
