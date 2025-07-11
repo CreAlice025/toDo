@@ -1,0 +1,26 @@
+<p class="text-green-600 text-center mb-2">dashboard works!</p>
+<p class="text-gray-700 text-center mb-4">le user est connecté</p>
+
+<div class="p-5">
+    <header class="flex justify-between items-center mb-8">
+        <h1 class="text-2xl font-bold text-gray-800">Dashboard</h1>
+        <button (click)="logout()" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition">
+            Déconnexion
+        </button>
+    </header>
+
+    <main>
+        @if (isLoggedIn()) {
+        <p class="text-green-700 font-medium mb-4">Vous êtes connecté !</p>
+        <button (click)="loadData()" class="px-4 py-2 bg-teal-600 text-white rounded hover:bg-teal-700 transition mb-4">
+            Charger des données
+        </button>
+
+        @if (data) {
+        <pre class="bg-gray-100 p-4 rounded overflow-auto text-sm">
+{{ data | json }}
+        </pre>
+        }
+        }
+    </main>
+</div>
