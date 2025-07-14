@@ -1,23 +1,21 @@
 <app-header></app-header>
 
-<main>
-    <app-tasks-list></app-tasks-list>
+<main class="flex flex-col gap-10 items-center p-10">
     @if (isLoggedIn()) {
-
-    <p class="text-green-700 font-medium mb-4">Vous êtes connecté !</p>
-    <button (click)="loadData()" class="px-4 py-2 bg-teal-600 text-white rounded hover:bg-teal-700 transition mb-4">
-        Charger des données
-    </button>
-
-    @if (data) {
-    <pre class="bg-gray-100 p-4 rounded overflow-auto text-sm">
-{{ data | json }}
-        </pre>
-    }
     <app-button variant="add" (action)="openTaskForm()">Ajouter une tâche</app-button>
     <app-task-form *ngIf="showTaskForm" (close)="closeTaskForm()"></app-task-form>
+    <app-tasks-list></app-tasks-list>
+    <div>
+        <button (click)="loadData()" class="px-4 py-2 bg-teal-600 text-white rounded hover:bg-teal-700 transition mb-4">
+            Charger les données utilisateurs
+        </button>
 
+        @if (data) {
+        <pre class="bg-gray-100 p-4 rounded overflow-auto text-sm">
+        {{ data | json }}
+        </pre>
+        }
+    </div>
     }
-
 
 </main>

@@ -13,7 +13,6 @@ export class Header {
   private authService = inject(AuthService);
   private http = inject(HttpClient);
 
-  // variable disponible pour savoir si l'utilisateur est connecté
   isLoggedIn = this.authService.isLoggedIn;
   data: any = null;
 

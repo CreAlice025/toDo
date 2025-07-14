@@ -10,13 +10,38 @@
 
 
 @if (!isLoading() && tasks().length > 0 && !hasError()) {
-<ul>
-    <li *ngFor="let task of tasks()" class="mb-2 flex justify-around">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
-        <input type="checkbox" [checked]="task.done" (change)="toggleTaskDone(task)">
-        {{task.label}}
-        <app-button variant="edit" (action)="editTaskLabel(task)">Modifier</app-button>
-        <app-button variant="delete" (action)="deleteTask(task.id!)">Supprimer</app-button>
-    </li>
-</ul>
+    <div class="bg-white shadow rounded p-4">
+        <h2 class="text-lg font-semibold text-gray-800 mb-4">À faire ⏰</h2>
+        <div class="space-y-2">
+            <div *ngFor="let task of tasksTodo()"
+                class="bg-gray-100 p-3 rounded flex justify-between items-center space-x-3">
+                <input type="checkbox" [checked]="task.done" (change)="toggleTaskDone(task)" class="scale-150" />
+                <p>{{ task.label }}</p>
+                <div class="flex gap-2">
+                    <app-button variant="edit" (action)="editTaskLabel(task)">🖋</app-button>
+                    <app-button variant="delete" (action)="deleteTask(task.id!)">🗑️</app-button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-white shadow rounded p-4">
+        <h2 class="text-lg font-semibold text-gray-800 mb-4">Fait ✔️</h2>
+        <div class="space-y-2">
+            <div *ngFor="let task of tasksDone()"
+                class="bg-green-100 p-3 rounded flex justify-between items-center opacity-70 space-x-3">
+                <input type="checkbox" [checked]="task.done" (change)="toggleTaskDone(task)" class="scale-150" />
+                <p class="line-through">{{ task.label }}</p>
+                <div class="flex gap-2">
+                    <app-button variant="edit" (action)="editTaskLabel(task)">🖋</app-button>
+                    <app-button variant="delete" (action)="deleteTask(task.id!)">🗑️</app-button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 }

@@ -35,11 +35,6 @@ export class TaskForm {
     this.label.set(input.value);
   }
 
-  setDescription(event: Event) {
-    const input = event.target as HTMLInputElement;
-    this.description.set(input.value);
-  }
-
   submitForm() {
     if (!this.label()) return;
 
@@ -48,7 +43,6 @@ export class TaskForm {
 
     const newTask: Task = {
       label: this.label(),
-      description: this.description(),
       done: this.done()
     }
 
