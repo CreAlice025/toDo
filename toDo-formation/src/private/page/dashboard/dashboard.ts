@@ -1,19 +1,28 @@
 import { Component, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { JsonPipe } from '@angular/common';
+import { CommonModule, JsonPipe } from '@angular/common';
 import { AuthService } from '../../../Services/auth-service/auth-service';
 import { Header } from "../../../shared/header/header";
+import { TasksList } from "../../components/tasks-list/tasks-list";
+import { Button } from '../../../shared/button/button';
+import { TaskForm } from "../../components/task-form/task-form";
 
 @Component({
   selector: 'app-dashboard',
   imports: [
     JsonPipe,
-    Header
+    Header,
+    TasksList,
+    Button,
+    TaskForm,
+    CommonModule
   ],
   standalone: true,
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css'
 })
+
+
 export class Dashboard {
   private authService = inject(AuthService);
   private http = inject(HttpClient);
@@ -30,13 +39,14 @@ export class Dashboard {
     });
   }
 
-  //ajouter une tache
+  showTaskForm = false
 
-  // modifier une tache 
+  openTaskForm() {
+    this.showTaskForm = true
+  }
 
-  //supprimé une tache
+  closeTaskForm() {
+    this.showTaskForm = false
+  }
 
-  // filtrer ?
-
-  // kamban DRAG&Drop ?
 }

@@ -1,0 +1,22 @@
+@if (isLoading()) {
+<p class="text-green-700 font-medium mb-4"> Chargement de la liste de tâches...</p> }
+
+@if (hasError()) {
+<p class="text-red-700 font-medium mb-4">Erreur de chargement, veuillez réessayer</p> }
+
+@if (!isLoading && tasks.length === 0 && !hasError) {
+<p class="text-blue-500 font-medium mb-4">Vous n'avez aucune tâche.</p>
+}
+
+
+@if (!isLoading() && tasks().length > 0 && !hasError()) {
+<ul>
+    <li *ngFor="let task of tasks()" class="mb-2 flex justify-around">
+
+        <input type="checkbox" [checked]="task.done" (change)="toggleTaskDone(task)">
+        {{task.label}}
+        <app-button variant="edit" (action)="editTaskLabel(task)">Modifier</app-button>
+        <app-button variant="delete" (action)="deleteTask(task.id!)">Supprimer</app-button>
+    </li>
+</ul>
+}

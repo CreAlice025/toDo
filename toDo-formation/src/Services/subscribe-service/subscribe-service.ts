@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
+import { User } from './user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,7 @@ export class SubscribeService {
 
   private http = inject(HttpClient)
 
-  register(userData: { username: string; email: string; password: string, role?: string }) {
+  register(userData: User) {
     const payload = { ...userData, role: userData.role || 'user' }
     return this.http.post(this.apiUrl, payload)
   }
