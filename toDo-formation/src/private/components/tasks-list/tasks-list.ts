@@ -3,10 +3,11 @@ import { TaskService } from '../../../Services/task-service/task-service';
 import { Task } from '../../../Services/task-service/task.model';
 import { Button } from "../../../shared/button/button";
 import { CommonModule } from '@angular/common';
+import { CdkDropList, CdkDrag, CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop'
 
 @Component({
   selector: 'app-tasks-list',
-  imports: [Button, CommonModule],
+  imports: [Button, CommonModule, CdkDropList, CdkDrag],
   standalone: true,
   templateUrl: './tasks-list.html',
   styleUrl: './tasks-list.css'
@@ -38,6 +39,7 @@ export class TasksList implements OnInit {
       }
     })
   }
+
   toggleTaskDone(task: Task) {
     this.taskService.editTaskStatus(task.id!, !task.done).subscribe({
       next: (updatedTask) => {
@@ -87,5 +89,39 @@ export class TasksList implements OnInit {
     }
   }
 
+  onDrop(event: CdkDragDrop<Task[]>) {
+    const todoList = this.tasksTodo()
+    const doneList = this.tasksDone()
+
+    // Drag&Drop dans la même liste - réordonner
+    if (event.previousContainer === event.container) {
+      if (event.container.id === 'todoList') {
+        moveItemInArray(todoList, event.previousIndex, event.currentIndex)
+        this.tasks.set([...todoList, ...doneList])
+      }
+    } else {
+      //Drag&Drop entre listes
+
+      //clonage des listes
+      const prevList = event.previousContainer.id === 'todoList' ? [...todoList] : [...doneList]
+      const currList = event.container.id === 'todoList' ? [...todoList] : [...doneList]
+
+      //deplacer l'élément
+      transferArrayItem(prevList, currList, event.previousIndex, event.currentIndex)
+
+      //on récupère la tâche
+      const movedTask = currList[event.currentIndex]
+
+      //mise à jour du status
+      movedTask.done = (event.container.id === 'doneList')
+
+      //reconstitution Liste globale
+      if (event.container.id === 'todoList') {
+        this.tasks.set([...currList, ...prevList])
+      } else {
+        this.tasks.set([...prevList, ...currList])
+      }
+    }
+  }
 
 }
