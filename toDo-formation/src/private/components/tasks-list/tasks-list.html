@@ -1,16 +1,16 @@
 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
-    <div class="bg-white shadow rounded p-4">
+    <div class="bg-white shadow shadow-gray-500 rounded p-4">
         <h2 class="text-lg font-semibold text-gray-800 mb-4">À faire ⏰</h2>
-        <div class="space-y-2" cdkDropList id="todoList" [cdkDropListData]="tasksTodo()"
+        <div class="space-y-2 cursor-grab" cdkDropList id="todoList" [cdkDropListData]="tasksTodo()"
             [cdkDropListConnectedTo]="['doneList']" (cdkDropListDropped)="onDrop($event)">
             <div *ngFor="let task of tasksTodo()" cdkDrag [cdkDragData]=" task"
                 class="bg-gray-100 p-3 rounded flex justify-between items-center space-x-3">
                 <input type="checkbox" [checked]="task.done" (change)="toggleTaskDone(task)" class="scale-150" />
                 <p>{{ task.label }}</p>
                 <div class="flex gap-2">
-                    <app-button variant="edit" (action)="editTaskLabel(task)">🖋</app-button>
-                    <app-button variant="delete" (action)="deleteTask(task.id!)">🗑️</app-button>
+                    <app-button type="button" variant="edit" (action)="editTaskLabel(task)">🖋</app-button>
+                    <app-button type="button" variant="delete" (action)="deleteTask(task.id!)">🗑️</app-button>
                 </div>
             </div>
             <div *ngIf="tasksTodo().length === 0"
@@ -20,17 +20,17 @@
         </div>
     </div>
 
-    <div class="bg-white shadow rounded p-4">
+    <div class="bg-white shadow shadow-green-600 rounded p-4">
         <h2 class="text-lg font-semibold text-gray-800 mb-4">Fait ✔️</h2>
-        <div class="space-y-2" cdkDropList id="doneList" [cdkDropListData]="tasksDone()"
+        <div class="space-y-2 cursor-grab" cdkDropList id="doneList" [cdkDropListData]="tasksDone()"
             [cdkDropListConnectedTo]="['todoList']" (cdkDropListDropped)="onDrop($event)">
             <div *ngFor="let task of tasksDone()" cdkDrag [cdkDragData]="task"
                 class="bg-green-100 p-3 rounded flex justify-between items-center opacity-70 space-x-3">
                 <input type="checkbox" [checked]="task.done" (change)="toggleTaskDone(task)" class="scale-150" />
                 <p class="line-through">{{ task.label }}</p>
                 <div class="flex gap-2">
-                    <app-button variant="edit" (action)="editTaskLabel(task)">🖋</app-button>
-                    <app-button variant="delete" (action)="deleteTask(task.id!)">🗑️</app-button>
+                    <app-button type="button" variant="edit" (action)="editTaskLabel(task)">🖋</app-button>
+                    <app-button type="button" variant="delete" (action)="deleteTask(task.id!)">🗑️</app-button>
 
                 </div>
             </div>

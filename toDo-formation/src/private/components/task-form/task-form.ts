@@ -3,10 +3,11 @@ import { TaskService } from '../../Services/task-service/task-service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Task } from '../../Services/task-service/task.model';
+import { Button } from "../../../shared/button/button";
 
 @Component({
   selector: 'app-task-form',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, Button],
   templateUrl: './task-form.html',
   styleUrl: './task-form.css'
 })

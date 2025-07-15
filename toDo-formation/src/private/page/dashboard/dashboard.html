@@ -3,7 +3,7 @@
 <main class="flex flex-col gap-10 items-center p-10">
 
     @if (isLoggedIn()) {
-    <app-button variant="add" (action)="openTaskForm()">Ajouter une tâche</app-button>
+    <app-button type="button" variant="add" (action)="openTaskForm()">Ajouter une tâche</app-button>
     <app-task-form *ngIf="showTaskForm" (close)="closeTaskForm()" (refreshTasks)="loadTasks()"></app-task-form>
 
     @if (isLoading()) {
@@ -19,7 +19,8 @@
     <app-tasks-list [tasks]="tasksValue"></app-tasks-list> }
 
     <div>
-        <button (click)="loadData()" class="px-4 py-2 bg-teal-600 text-white rounded hover:bg-teal-700 transition mb-4">
+        <button (click)="loadData()"
+            class="cursor-pointer px-4 py-2 bg-teal-600 text-white rounded hover:bg-teal-700 transition mb-4">
             Charger les données utilisateurs
         </button>
 
