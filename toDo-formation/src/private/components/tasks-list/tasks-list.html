@@ -9,8 +9,10 @@
                 <input type="checkbox" [checked]="task.done" (change)="toggleTaskDone(task)" class="scale-150" />
                 <p>{{ task.label }}</p>
                 <div class="flex gap-2">
-                    <app-button type="button" variant="edit" (action)="editTaskLabel(task)">🖋</app-button>
-                    <app-button type="button" variant="delete" (action)="deleteTask(task.id!)">🗑️</app-button>
+                    <app-button type="button" variant="edit" (action)="editTaskLabel(task)"> <img
+                            src="editer-le-texte.png" alt="stylo" class="w-5 h-5"></app-button>
+                    <app-button type="button" variant="delete" (action)="deleteTask(task.id!)"><img
+                            src="sac-a-ordures.png" alt="trash" class="w-5 h-5"></app-button>
                 </div>
             </div>
             <div *ngIf="tasksTodo().length === 0"
@@ -25,12 +27,14 @@
         <div class="space-y-2 cursor-grab" cdkDropList id="doneList" [cdkDropListData]="tasksDone()"
             [cdkDropListConnectedTo]="['todoList']" (cdkDropListDropped)="onDrop($event)">
             <div *ngFor="let task of tasksDone()" cdkDrag [cdkDragData]="task"
-                class="bg-green-100 p-3 rounded flex justify-between items-center opacity-70 space-x-3">
+                class="bg-green-100 p-3 rounded flex justify-between items-center space-x-3">
                 <input type="checkbox" [checked]="task.done" (change)="toggleTaskDone(task)" class="scale-150" />
                 <p class="line-through">{{ task.label }}</p>
                 <div class="flex gap-2">
-                    <app-button type="button" variant="edit" (action)="editTaskLabel(task)">🖋</app-button>
-                    <app-button type="button" variant="delete" (action)="deleteTask(task.id!)">🗑️</app-button>
+                    <app-button type="button" variant="edit" (action)="editTaskLabel(task)"><img
+                            src="editer-le-texte.png" alt="stylo" class="w-5 h-5"></app-button>
+                    <app-button type="button" variant="delete" (action)="deleteTask(task.id!)"><img
+                            src="sac-a-ordures.png" alt="trash" class="w-5 h-5"></app-button>
 
                 </div>
             </div>
