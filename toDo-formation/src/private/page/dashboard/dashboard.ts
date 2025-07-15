@@ -8,6 +8,7 @@ import { Button } from '../../../shared/button/button';
 import { TaskForm } from "../../components/task-form/task-form";
 import { Task } from '../../Services/task-service/task.model';
 import { TaskService } from '../../Services/task-service/task-service';
+import { Footer } from "../../../shared/footer/footer";
 
 @Component({
   selector: 'app-dashboard',
@@ -17,7 +18,8 @@ import { TaskService } from '../../Services/task-service/task-service';
     TasksList,
     Button,
     TaskForm,
-    CommonModule
+    CommonModule,
+    Footer
   ],
   standalone: true,
   templateUrl: './dashboard.html',
