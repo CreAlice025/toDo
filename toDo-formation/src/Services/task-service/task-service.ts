@@ -35,4 +35,7 @@ export class TaskService {
     return this.http.put<Task>(url, { done })
   }
 
+  updateTaskOrderOrStatus(task: Task): Observable<Task> {
+    return this.editTaskStatus(task.id!, task.done ?? false)
+  }
 }

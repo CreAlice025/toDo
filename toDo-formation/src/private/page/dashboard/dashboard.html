@@ -1,10 +1,23 @@
 <app-header></app-header>
 
 <main class="flex flex-col gap-10 items-center p-10">
+
     @if (isLoggedIn()) {
     <app-button variant="add" (action)="openTaskForm()">Ajouter une tâche</app-button>
-    <app-task-form *ngIf="showTaskForm" (close)="closeTaskForm()"></app-task-form>
-    <app-tasks-list></app-tasks-list>
+    <app-task-form *ngIf="showTaskForm" (close)="closeTaskForm()" (refreshTasks)="loadTasks()"></app-task-form>
+
+    @if (isLoading()) {
+    <p class="text-green-700 font-medium mb-4"> Chargement de la liste de tâches...</p> }
+
+    @if (hasError()) {
+    <p class="text-red-700 font-medium mb-4">Erreur de chargement, veuillez réessayer</p> }
+
+    @if (!isLoading() && tasks().length === 0 && !hasError()) {
+    <p class="text-blue-500 font-medium mb-4">Vous n'avez aucune tâche.</p>
+    }
+    @if (!isLoading() && tasks().length > 0 && !hasError()) {
+    <app-tasks-list [tasks]="tasksValue"></app-tasks-list> }
+
     <div>
         <button (click)="loadData()" class="px-4 py-2 bg-teal-600 text-white rounded hover:bg-teal-700 transition mb-4">
             Charger les données utilisateurs

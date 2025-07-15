@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule, JsonPipe } from '@angular/common';
 import { AuthService } from '../../../Services/auth-service/auth-service';
@@ -6,6 +6,8 @@ import { Header } from "../../../shared/header/header";
 import { TasksList } from "../../components/tasks-list/tasks-list";
 import { Button } from '../../../shared/button/button';
 import { TaskForm } from "../../components/task-form/task-form";
+import { Task } from '../../../Services/task-service/task.model';
+import { TaskService } from '../../../Services/task-service/task-service';
 
 @Component({
   selector: 'app-dashboard',
@@ -23,9 +25,10 @@ import { TaskForm } from "../../components/task-form/task-form";
 })
 
 
-export class Dashboard {
+export class Dashboard implements OnInit {
   private authService = inject(AuthService);
   private http = inject(HttpClient);
+  private taskService = inject(TaskService)
 
   // variable disponible pour savoir si l'utilisateur est connecté
   isLoggedIn = this.authService.isLoggedIn;
@@ -39,6 +42,36 @@ export class Dashboard {
     });
   }
 
+  isLoading = signal(true)
+  hasError = signal(false)
+  tasks = signal<Task[]>([])
+
+  get tasksValue() {
+    return this.tasks()
+  }
+
+  ngOnInit() {
+    this.loadTasks()
+  }
+
+
+  loadTasks() {
+    this.isLoading.set(true);
+    this.hasError.set(false);
+    this.taskService.getTasksList().subscribe({
+      next: (tasks) => {
+        this.tasks.set(tasks);
+        console.log(tasks)
+        this.isLoading.set(false);
+      },
+      error: (err) => {
+        console.error(err);
+        this.hasError.set(true);
+        this.isLoading.set(false);
+      }
+    });
+  }
+
   showTaskForm = false
 
   openTaskForm() {
@@ -47,6 +80,7 @@ export class Dashboard {
 
   closeTaskForm() {
     this.showTaskForm = false
+    this.loadTasks()
   }
 
 }

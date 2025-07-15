@@ -1,8 +1,7 @@
-import { Component, EventEmitter, inject, Output, signal } from '@angular/core';
+import { Component, EventEmitter, inject, Output, signal, NgZone, output } from '@angular/core';
 import { TaskService } from '../../../Services/task-service/task-service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
 import { Task } from '../../../Services/task-service/task.model';
 
 @Component({
@@ -14,11 +13,13 @@ import { Task } from '../../../Services/task-service/task.model';
 
 export class TaskForm {
   private TaskService = inject(TaskService)
-  private router = inject(Router);
+  private ngZone = inject(NgZone)
 
-  readonly label = signal("")
-  readonly description = signal("")
-  readonly done = signal(false)
+  @Output() refreshTasks = new EventEmitter<void>()
+
+  label = signal("")
+  description = signal("")
+  done = signal(false)
 
   loading = signal(false);
   errorMessage = signal('');
@@ -41,6 +42,7 @@ export class TaskForm {
     this.loading.set(true);
     this.errorMessage.set('');
 
+
     const newTask: Task = {
       label: this.label(),
       done: this.done()
@@ -49,16 +51,25 @@ export class TaskForm {
 
     this.TaskService.addTask(newTask).subscribe({
       next: () => {
-        this.loading.set(false)
-        this.router.navigate(['/dashboard'])
+        this.loading.set(false);
+        this.TaskService.getTasksList().subscribe({
+          next: (tasks) => {
+            this.ngZone.run(() => {
+              // this.tasks.set(tasks);
+              this.refreshTasks.emit()
+              this.close.emit();
+            });
+          },
+          error: (err) => console.error('Erreur reload tasks', err)
+        });
       },
-      error: (error) => {
-        this.loading.set(false)
-        this.errorMessage.set("La tâche n'est pas valide")
+      error: (err) => {
+        this.loading.set(false);
+        console.error('Erreur ajout tâche:', err);
       }
-    })
+    });
 
-    this.close.emit()
+
   }
 
   cancel() {
