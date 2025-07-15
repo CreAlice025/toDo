@@ -22,24 +22,6 @@ export class TasksList {
   tasksTodo = computed(() => this.tasksSignal().filter(t => !t.done));
   tasksDone = computed(() => this.tasksSignal().filter(t => t.done));
 
-
-  // ngOnInit(): void {
-  //   this.taskService.getTasksList().subscribe({
-  //     next: (response) => {
-  //       this.tasksSignal.set(response)
-  //       console.log(response)
-  //       this.isLoading.set(false)
-  //       this.hasError.set(false)
-  //       this.cdr.detectChanges()
-  //     },
-  //     error: (err) => {
-  //       console.error('Erreur :', err)
-  //       this.isLoading.set(false)
-  //       this.hasError.set(true)
-  //     }
-  //   })
-  // }
-
   ngOnChanges(changes: SimpleChanges) {
     if (changes['tasks'] && changes['tasks'].currentValue) {
       this.tasksSignal.set([...changes['tasks'].currentValue])
