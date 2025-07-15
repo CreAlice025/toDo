@@ -1,13 +1,13 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule, JsonPipe } from '@angular/common';
-import { AuthService } from '../../../Services/auth-service/auth-service';
+import { AuthService } from '../../Services/auth-service/auth-service';
 import { Header } from "../../../shared/header/header";
 import { TasksList } from "../../components/tasks-list/tasks-list";
 import { Button } from '../../../shared/button/button';
 import { TaskForm } from "../../components/task-form/task-form";
-import { Task } from '../../../Services/task-service/task.model';
-import { TaskService } from '../../../Services/task-service/task-service';
+import { Task } from '../../Services/task-service/task.model';
+import { TaskService } from '../../Services/task-service/task-service';
 
 @Component({
   selector: 'app-dashboard',

@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { AuthService } from '../../Services/auth-service/auth-service';
+import { AuthService } from '../../private/Services/auth-service/auth-service';
 import { HttpClient } from '@angular/common/http';
 
 @Component({

@@ -2,8 +2,8 @@ import { Component, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-import { AuthService } from '../../../Services/auth-service/auth-service';
-import { SubscribeService } from '../../../Services/subscribe-service/subscribe-service';
+import { AuthService } from '../../../private/Services/auth-service/auth-service';
+import { SubscribeService } from '../../../private/Services/subscribe-service/subscribe-service';
 
 @Component({
   selector: 'app-login',

@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, computed, inject, Input, NgZone, OnInit, signal, SimpleChange, SimpleChanges } from '@angular/core';
-import { TaskService } from '../../../Services/task-service/task-service';
-import { Task } from '../../../Services/task-service/task.model';
+import { TaskService } from '../../Services/task-service/task-service';
+import { Task } from '../../Services/task-service/task.model';
 import { Button } from "../../../shared/button/button";
 import { CommonModule } from '@angular/common';
 import { CdkDropList, CdkDrag, CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop'
@@ -111,7 +111,6 @@ export class TasksList {
       }
     } else {
       //Drag&Drop entre listes
-
       //clonage des listes
       const prevList = event.previousContainer.id === 'todoList' ? [...todoList] : [...doneList]
       const currList = event.container.id === 'todoList' ? [...todoList] : [...doneList]
@@ -133,6 +132,10 @@ export class TasksList {
       }
       this.taskService.updateTaskOrderOrStatus(movedTask).subscribe({
         next: () => {
+          this.taskService.getTasksList().subscribe({
+            next: (tasks) => this.tasksSignal.set(tasks),
+            error: (err) => console.error('Erreur reload après update drag:', err)
+          })
         },
         error: (err) => {
           console.error('Erreur update task après drag & drop:', err);

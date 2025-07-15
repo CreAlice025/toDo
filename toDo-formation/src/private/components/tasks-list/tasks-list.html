@@ -13,6 +13,10 @@
                     <app-button variant="delete" (action)="deleteTask(task.id!)">🗑️</app-button>
                 </div>
             </div>
+            <div *ngIf="tasksTodo().length === 0"
+                class="text-gray-400 italic select-none min-h-[50px] flex justify-center items-center border-2 border-dashed border-gray-300 rounded">
+                Glisse ta tâche ici
+            </div>
         </div>
     </div>
 
@@ -29,6 +33,10 @@
                     <app-button variant="delete" (action)="deleteTask(task.id!)">🗑️</app-button>
 
                 </div>
+            </div>
+            <div *ngIf="tasksDone().length === 0"
+                class="text-gray-400 italic select-none min-h-[50px] flex justify-center items-center border-2 border-dashed border-gray-300 rounded">
+                Glisse ta tâche ici
             </div>
         </div>
     </div>

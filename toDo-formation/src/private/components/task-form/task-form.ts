@@ -1,8 +1,8 @@
 import { Component, EventEmitter, inject, Output, signal, NgZone, output } from '@angular/core';
-import { TaskService } from '../../../Services/task-service/task-service';
+import { TaskService } from '../../Services/task-service/task-service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Task } from '../../../Services/task-service/task.model';
+import { Task } from '../../Services/task-service/task.model';
 
 @Component({
   selector: 'app-task-form',
