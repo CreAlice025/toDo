@@ -2,10 +2,11 @@ import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { AuthService } from '../../private/Services/auth-service/auth-service';
 import { HttpClient } from '@angular/common/http';
+import { Button } from "../button/button";
 
 @Component({
   selector: 'app-header',
-  imports: [CommonModule],
+  imports: [CommonModule, Button],
   templateUrl: './header.html',
   styleUrl: './header.css'
 })
